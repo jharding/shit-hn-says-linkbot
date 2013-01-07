@@ -12,11 +12,17 @@ var f = require('util').format
 // configuration
 // -------------
 
-var twitter = new Twitter({
+var rTwitter = new Twitter({
       consumer_key: config.consumerKey
     , consumer_secret: config.consumerSecret
-    , access_token_key: config.accessTokenKey
-    , access_token_secret: config.accessTokenSecret
+    , access_token_key: config.readAccessTokenKey
+    , access_token_secret: config.readAccessTokenSecret
+    })
+  , wTwitter = new Twitter({
+      consumer_key: config.consumerKey
+    , consumer_secret: config.consumerSecret
+    , access_token_key: config.writeAccessTokenKey
+    , access_token_secret: config.writeAccessTokenSecret
     })
   , tweetFormat = [
       'Best guess:'
@@ -82,7 +88,7 @@ function getRepliedToTweetIds(cb) {
   var params = { screen_name: 'shs_linkbot', count: 100 }
     , repliedToTweetIds = [];
 
-  twitter.getUserTimeline(params, function(err, tweets) {
+  rTwitter.getUserTimeline(params, function(err, tweets) {
     if (err) { return cb(err); }
 
     tweets.forEach(function(tweet) {
@@ -101,7 +107,7 @@ function getNewTweets(oldTweets, cb) {
       }
     , newTweets;
 
-  twitter.getUserTimeline(params, function(err, tweets) {
+  rTwitter.getUserTimeline(params, function(err, tweets) {
     if (err) { return cb(err); }
 
     newTweets = tweets.filter(function(tweet) {
@@ -116,7 +122,7 @@ function replyToTweetWithCommentInfo(inReplyToTweet, hnComment) {
   var text = f(tweetFormat, hnComment.id, inReplyToTweet.user.screen_name)
     , params = { in_reply_to_status_id: inReplyToTweet.id_str };
 
-  twitter.updateStatus(text, params, function(err, tweet) {
+  wTwitter.updateStatus(text, params, function(err, tweet) {
     if (err) {
       return log.error('failed to reply to %s', inReplyToTweet.id_str);
     }
