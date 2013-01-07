@@ -1,0 +1,25 @@
+{
+  "name": "shit_hn_says_linkbot",
+  "private": true,
+  "version": "0.0.0",
+  "author": {
+    "name": "Jake Harding",
+    "email": "jacob.s.harding@gmail.com"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "ntwitter": "~0"
+  , "hnsearch": "~0"
+  , "log": "~1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jharding/shit-hn-says-linkbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jharding/shit-hn-says-linkbot/issues"
+  },
+  "license": "MIT"
+}
