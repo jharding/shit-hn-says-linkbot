@@ -1,5 +1,6 @@
 .DS_Store
 *.swp
 
+*.log
 config.json
 /node_modules
