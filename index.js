@@ -12,7 +12,8 @@ var f = require('util').format
 // configuration
 // -------------
 
-var rTwitter = new Twitter({
+var ENV = (process.env.NODE_ENV || 'dev').toLowerCase()
+  , rTwitter = new Twitter({
       consumer_key: config.consumerKey
     , consumer_secret: config.consumerSecret
     , access_token_key: config.readAccessTokenKey
@@ -29,10 +30,8 @@ var rTwitter = new Twitter({
     , 'http://news.ycombinator.com/item?id=%s'
     , '/cc @%s'
     ].join(' ')
-  , log = new Log(
-      'info'
-    , fs.createWriteStream( path.join(__dirname, 'log.log'), { flags: 'a' })
-    );
+  , logPath = path.join(__dirname, f('%s.log', ENV))
+  , log = new Log('info', fs.createWriteStream(logPath, { flags: 'a' }));
 
 // shs_linkbot
 // -----------
