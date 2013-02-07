@@ -26,7 +26,7 @@ var ENV = (process.env.NODE_ENV || 'dev').toLowerCase()
     , access_token_secret: config.writeAccessTokenSecret
     })
   , tweetFormat = [
-      'Best guess:'
+      'Perpetrator:'
     , 'http://news.ycombinator.com/item?id=%s'
     , '/cc @%s'
     ].join(' ')
